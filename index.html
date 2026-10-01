@@ -1,0 +1,388 @@
+```html
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ғажайып Әлем</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+background:#05091e;
+color:white;
+font-family:Arial,sans-serif;
+}
+
+button{cursor:pointer}
+
+.sidebar{
+position:fixed;left:0;top:0;bottom:0;
+width:210px;background:#080d29;
+border-right:1px solid #202b59;
+padding:25px 12px;
+z-index:5;
+}
+
+.logo{font-size:21px;font-weight:bold;color:#d6a5ff}
+.logo small{display:block;font-size:11px;color:#aaa;margin-top:7px}
+
+.menu{margin-top:35px}
+.menu a{
+display:block;color:#c8c9e5;
+text-decoration:none;padding:14px 12px;
+border-radius:10px;margin-bottom:5px;
+font-size:14px;transition:.25s;
+}
+.menu a:hover,.menu a.active{
+background:linear-gradient(90deg,#3524a5,#161b58);
+color:white;
+}
+
+.main{margin-left:210px;padding:20px 24px}
+
+.topbar{
+display:flex;justify-content:space-between;
+align-items:center;gap:15px;margin-bottom:20px;
+}
+
+.search{
+background:#10183b;border:1px solid #27346c;
+border-radius:30px;padding:13px 20px;
+color:white;width:60%;outline:none;
+}
+
+.coins{
+background:#22204d;padding:12px 20px;
+border-radius:30px;color:#ffd45b;
+}
+
+.hero{
+height:255px;border-radius:18px;
+background:
+linear-gradient(90deg,#05091e 0%,#080b2570 50%,transparent),
+url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1500') center/cover;
+border:1px solid #5541b9;
+display:flex;align-items:center;padding:35px;
+overflow:hidden;
+}
+
+.hero h1{font-size:39px;line-height:1.2}
+.hero h1 span{color:#45d8ff}
+.hero p{color:#d5d7f5;margin:15px 0;max-width:400px;line-height:1.5}
+
+.primary{
+background:linear-gradient(90deg,#6035ff,#ce36ee);
+color:white;border:0;border-radius:12px;
+padding:13px 23px;font-weight:bold;
+box-shadow:0 0 25px #773bff66;
+}
+
+.section{margin-top:27px}
+.section-title{
+font-size:20px;margin-bottom:15px;
+display:flex;justify-content:space-between;
+align-items:center;
+}
+
+.categories{
+display:grid;grid-template-columns:repeat(5,1fr);gap:12px;
+}
+
+.category{
+border:1px solid #353e82;border-radius:14px;
+overflow:hidden;background:#101839;
+transition:.3s;cursor:pointer;
+}
+.category:hover{transform:translateY(-5px);border-color:#a45cff}
+
+.category img{width:100%;height:115px;object-fit:cover}
+.category div{padding:13px}
+.category h3{font-size:14px;margin-bottom:7px}
+.category p{font-size:11px;color:#aaa;line-height:1.5}
+
+.gallery{
+display:grid;grid-template-columns:repeat(6,1fr);gap:12px;
+}
+
+.photo{
+height:150px;border-radius:12px;overflow:hidden;
+border:1px solid #343c79;cursor:pointer;
+position:relative;
+}
+.photo img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.photo:hover img{transform:scale(1.12)}
+.photo span{
+position:absolute;bottom:0;left:0;right:0;
+padding:20px 8px 8px;
+background:linear-gradient(transparent,#000c);
+font-size:12px;
+}
+
+.columns{
+display:grid;grid-template-columns:1.5fr 1fr 220px;gap:14px;
+}
+
+.panel{
+background:#0c1431;border:1px solid #29366c;
+border-radius:15px;padding:16px;min-width:0;
+}
+
+.games{
+display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+margin-top:15px;
+}
+
+.game{
+background:#141e42;border-radius:10px;
+padding:10px;border:1px solid #29376e;
+}
+.game img{width:100%;height:90px;object-fit:cover;border-radius:7px}
+.game h4{font-size:12px;margin:9px 0}
+.game button{
+background:#3425c7;color:white;border:0;
+padding:8px;border-radius:8px;width:100%;
+}
+
+.fact{color:#c4c7df;font-size:13px;line-height:1.7;margin-top:12px}
+.progress{
+height:9px;background:#252d5a;border-radius:10px;margin:15px 0;
+overflow:hidden;
+}
+.progress div{height:100%;width:62%;background:linear-gradient(90deg,#963cff,#24caff)}
+
+.task{font-size:13px;line-height:1.7;color:#ddd;margin:15px 0}
+
+.banner{
+margin-top:20px;border-radius:14px;padding:28px;
+text-align:center;
+background:linear-gradient(90deg,#102c59aa,#291c65aa),
+url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200') center/cover;
+}
+
+footer{text-align:center;color:#777;font-size:12px;padding:30px}
+
+.modal{
+display:none;position:fixed;inset:0;background:#000e;
+z-index:20;align-items:center;justify-content:center;padding:20px;
+}
+.modal img{max-width:90%;max-height:80vh;border-radius:15px}
+.modal button{position:absolute;top:25px;right:30px}
+
+@media(max-width:1000px){
+.sidebar{width:65px}
+.logo{font-size:0}
+.logo:after{content:"✦";font-size:25px}
+.menu a{font-size:0;text-align:center}
+.menu a:before{content:"✦";font-size:20px}
+.main{margin-left:65px}
+.categories{grid-template-columns:repeat(3,1fr)}
+.gallery{grid-template-columns:repeat(3,1fr)}
+.columns{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:600px){
+.main{padding:12px}
+.hero{height:300px;padding:20px}
+.hero h1{font-size:30px}
+.categories{grid-template-columns:repeat(2,1fr)}
+.gallery{grid-template-columns:repeat(2,1fr)}
+.columns{grid-template-columns:1fr}
+.search{width:75%}
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+<div class="logo">🌌 ҒАЖАЙЫП ӘЛЕМ
+<small>Бір әлем — мың мүмкіндік</small></div>
+
+<nav class="menu">
+<a class="active" href="#">⌂　Басты бет</a>
+<a href="#gallery">▧　Галерея</a>
+<a href="#games">🎮　Ойындар</a>
+<a href="#facts">💡　Қызықты фактілер</a>
+<a href="#categories">🌍　Жер шары</a>
+<a href="#categories">🚀　Ғарыш</a>
+<a href="#categories">🌿　Табиғат</a>
+<a href="#categories">⚙　Технология</a>
+<a href="#facts">🔒　Құпиялар</a>
+<a href="#profile">🏆　Жетістіктер</a>
+</nav>
+</aside>
+
+<main class="main">
+
+<div class="topbar">
+<input class="search" id="search" placeholder="Іздеу... ғарыш, жануар, табиғат">
+<div class="coins">🪙 <span id="xp">1250</span></div>
+</div>
+
+<section class="hero">
+<div>
+<h1>ҒАЖАЙЫП<br>ӘЛЕМГЕ <span>ҚОШ КЕЛДІҢ!</span></h1>
+<p>Бұл жерде сен әлемді жаңа қырынан көресің! Суреттер, қызықты деректер, ойындар және тағы да көп нәрсе сені күтеді!</p>
+<button class="primary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Саяхатқа шығу 🚀</button>
+</div>
+</section>
+
+<section class="section" id="categories">
+<div class="section-title">✨ Негізгі бөлімдер</div>
+<div class="categories">
+
+<div class="category" onclick="filter('ғарыш')">
+<img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=400">
+<div><h3>🪐 Ғарыш</h3><p>Жұлдыздар, планеталар, галактикалар</p></div>
+</div>
+
+<div class="category" onclick="filter('жер')">
+<img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=400">
+<div><h3>🌍 Жер шары</h3><p>Әлем елдері, қалалар, табиғат</p></div>
+</div>
+
+<div class="category" onclick="filter('жануар')">
+<img src="https://images.unsplash.com/photo-1549366021-9f761d450615?w=400">
+<div><h3>🌿 Табиғат</h3><p>Жануарлар, өсімдіктер, тіршілік</p></div>
+</div>
+
+<div class="category" onclick="filter('технология')">
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400">
+<div><h3>⚙ Технология</h3><p>Жасанды интеллект, болашақ</p></div>
+</div>
+
+<div class="category" onclick="filter('құпия')">
+<img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400">
+<div><h3>🔐 Құпиялар</h3><p>Жұмбақтар, аңыздар, көне әлем</p></div>
+</div>
+
+</div>
+</section>
+
+<section class="section" id="gallery">
+<div class="section-title">🖼 Суреттер галереясы <span>✦</span></div>
+<div class="gallery" id="photos">
+
+<div class="photo" data-name="ғарыш"><img src="https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=500"><span>Ғарыш әлемі</span></div>
+<div class="photo" data-name="жануар"><img src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=500"><span>Жабайы табиғат</span></div>
+<div class="photo" data-name="жер"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500"><span>Табиғат көрінісі</span></div>
+<div class="photo" data-name="ғарыш"><img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=500"><span>Галактика</span></div>
+<div class="photo" data-name="табиғат"><img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=500"><span>Таңғы табиғат</span></div>
+<div class="photo" data-name="жер"><img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=500"><span>Мұхит</span></div>
+</div>
+</section>
+
+<section class="section columns">
+
+<div class="panel" id="games">
+<h3>🎮 Ойындар мен тапсырмалар</h3>
+<p class="fact">Өзіңді сынап көр! Дұрыс жауап беріп, ұпай жина!</p>
+<div class="games">
+<div class="game">
+<img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=300">
+<h4>🌌 Ғарыш викторинасы</h4>
+<button onclick="quiz()">Ойнау →</button>
+</div>
+<div class="game">
+<img src="https://images.unsplash.com/photo-1511497584788-876760111969?w=300">
+<h4>🌿 Табиғат әлемі</h4>
+<button onclick="quiz2()">Ойнау →</button>
+</div>
+</div>
+</div>
+
+<div class="panel" id="facts">
+<h3>💡 Қызықты фактілер</h3>
+<div class="fact" id="factText">Сатурнның тығыздығы судан төмен. Теориялық тұрғыдан алып суға салсаң, жүзе алар еді!</div>
+<button class="primary" style="margin-top:20px" onclick="nextFact()">Келесі факт →</button>
+</div>
+
+<div class="panel" id="profile">
+<h3>🏆 Сенің жетістігің</h3>
+<div style="text-align:center;font-size:42px;margin:20px">🏅</div>
+<h2 style="text-align:center">4-деңгей</h2>
+<div class="progress"><div></div></div>
+<p class="fact" style="text-align:center">1250 / 2000 XP</p>
+<hr style="border-color:#29366c;margin:20px 0">
+<p class="fact">🎁 Тапсырмалар: 25</p>
+<p class="fact">🏆 Жеңістер: 12</p>
+<p class="fact">💡 Ашылған құпиялар: 3</p>
+</div>
+
+</section>
+
+<div class="banner">
+<h2>🌄 Табиғатты көр — болашақты сақта!</h2>
+<p style="margin:12px">Біздің Жер — біздің ортақ үйіміз.</p>
+<button class="primary" onclick="alert('Табиғатты қорғау өзіңнен басталады! 🌱')">Толығырақ →</button>
+</div>
+
+<footer>🌌 ҒАЖАЙЫП ӘЛЕМ | Барлық құқықтар қорғалған © 2026</footer>
+</main>
+
+<div class="modal" id="modal" onclick="this.style.display='none'">
+<button class="primary">Жабу ✕</button>
+<img id="bigImage">
+</div>
+
+<script>
+let xp=1250;
+
+document.querySelectorAll('.photo img').forEach(img=>{
+img.onclick=()=>{
+document.getElementById('bigImage').src=img.src;
+document.getElementById('modal').style.display='flex';
+};
+});
+
+document.getElementById('search').addEventListener('input',function(){
+let value=this.value.toLowerCase();
+document.querySelectorAll('.photo').forEach(photo=>{
+photo.style.display=photo.dataset.name.includes(value)?'block':'none';
+});
+});
+
+function filter(word){
+document.getElementById('search').value=word;
+document.getElementById('search').dispatchEvent(new Event('input'));
+document.getElementById('gallery').scrollIntoView({behavior:'smooth'});
+}
+
+function quiz(){
+let answer=prompt('Күн жүйесіндегі ең үлкен планета қайсы?\\n1. Марс\\n2. Юпитер\\n3. Жер');
+if(answer==='2'){
+xp+=100;
+document.getElementById('xp').textContent=xp;
+alert('Дұрыс! 🎉 +100 ұпай!');
+}else if(answer!==null){alert('Қайта байқап көр! 😊');}
+}
+
+function quiz2(){
+let answer=prompt('Жердегі ең үлкен жануар қайсы?\\n1. Көк кит\\n2. Піл\\n3. Керік');
+if(answer==='1'){
+xp+=100;
+document.getElementById('xp').textContent=xp;
+alert('Жарайсың! +100 ұпай! 🏆');
+}else if(answer!==null){alert('Тағы бір рет байқап көр!');}
+}
+
+let facts=[
+'Сатурнның тығыздығы судан төмен. Теориялық тұрғыдан алып суға салсаң, жүзе алар еді!',
+'Жарық Күннен Жерге шамамен 8 минут 20 секундта жетеді.',
+'Көк кит — Жер бетінде өмір сүрген ең ірі жануар.',
+'Ғарышта дыбыс таралмайды, себебі ауа сияқты орта жоқ.',
+'Аралар гүлдердің орналасуын бір-біріне би арқылы жеткізе алады.'
+];
+let index=0;
+
+function nextFact(){
+index=(index+1)%facts.length;
+document.getElementById('factText').textContent=facts[index];
+}
+</script>
+
+</body>
+</html>
+```
